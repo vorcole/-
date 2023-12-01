@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #game-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      background-color: #eee;
+      touch-action: none; /* 터치 이벤트를 브라우저 기본 동작에서 제거합니다. */
+    }
+
+    .target {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    #score {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  </style>
+  <title>터치 게임</title>
+</head>
+<body>
+  <div id="game-container">
+    <div id="score">점수: 0</div>
+  </div>
+
+  <script>
+    let score = 0;
+
+    function createTarget() {
+      const target = document.createElement('div');
+      target.classList.add('target');
+      target.style.left = `${Math.random() * 250}px`;
+      target.style.top = `${Math.random() * 250}px`;
+
+      target.addEventListener('click', () => {
+        score++;
+        updateScore();
+        target.remove();
+        createTarget();
+      });
+
+      document.getElementById('game-container').appendChild(target);
+    }
+
+    function updateScore() {
+      document.getElementById('score').textContent = `점수: ${score}`;
+    }
+
+    createTarget();
+  </script>
+</body>
+</html>
